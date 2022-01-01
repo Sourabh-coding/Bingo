@@ -433,7 +433,9 @@ set(ref(db,"game/"+gc), {
       Bingo: "No Bingo",
       Time: t,
       Turn: turn
-    }).catch(err => alert(err))
+    }).then(() => {
+      location.reload();
+     })
      })
     } else {
        get(child(dbref,"game/"+newgamecode)).then(snap => {
@@ -451,7 +453,7 @@ set(ref(db,"game/"+gc), {
       Bingo: "No Bingo",
       Time: t,
       Turn: turn
-    })
+    }).then(() => { location.reload(); })
      })
     }
           })
