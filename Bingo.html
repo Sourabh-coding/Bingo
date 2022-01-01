@@ -1,0 +1,1278 @@
+<div class="bingobasic">
+<img src="Numbers.gif">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet"><link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  
+  var snap_player;
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyB_XCyPCo5lm-XlJmfSpV4c0LqPe-jPAFg",
+    authDomain: "bingo-94991.firebaseapp.com",
+    projectId: "bingo-94991",
+    storageBucket: "bingo-94991.appspot.com",
+    messagingSenderId: "73751086402",
+    appId: "1:73751086402:web:b174813721ae092988b4db",
+    measurementId: "G-M56ZSKDJT4"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  
+  
+  import { getDatabase, ref, get , set, child, update, remove, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"
+  
+  var db = getDatabase();
+  var dbref = ref(db);
+  var c = document.cookie
+  .split(';')
+  .map(cookie => cookie.split('='))
+  .reduce((accumulator, [key, value]) => ({
+    ...accumulator,
+    [key.trim()]: decodeURIComponent(value)
+  }), {});
+  var myname = c.name;
+  
+  //alert(myname)
+  //var myname = "Vaibhav";
+  var mykey;
+  document.getElementById("Createagamebutton").addEventListener("click",() => {
+    var newgamecode = document.getElementById("newgamecode").value;
+    set(ref(db,"game/"+newgamecode), {
+      gamecode: newgamecode,
+      players: `${myname}|`,
+      Bingo: "No Bingo",
+      Time: new Date().toLocaleTimeString().split(" ")[0],
+      Turn: myname
+    }).then(() => {
+        //alert("Game Created")
+  get(child(dbref,"game/"+newgamecode)).then(snap => {
+ document.querySelector("#Bingogame").innerHTML = `<div class="${snap.val().Time}" id="bingoboard">
+ <div id="bb" data-id="${snap.val().Time}B" data-letter="B">B</div>
+ <div id="bb" data-id="${snap.val().Time}I" data-letter="I">I</div>
+  <div id="bb" data-id="${snap.val().Time}N" data-letter="N">N</div>
+  <div id="bb" data-id="${snap.val().Time}G" data-letter="G">G</div>
+  <div id="bb" data-id="${snap.val().Time}O" data-letter="O">O</div>
+  <div id="bb" class="bb1" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb2" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb3" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb4" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb5" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb6" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb7" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb8" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb9" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb10" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb11" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb12" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb13" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb14" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb15" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb16" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb17" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb18" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb19" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb20" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb21" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb22" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb23" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb24" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb25" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+</div>
+<br>
+<br>
+<center><p id="number"></p></center>
+<button disabled id="btn" data-finsh="done">Bingo</button>
+<br>
+<br>
+<br>
+<center><font size="6"><i data-menuid="${snap.val().Time}menu" onclick="displaymenu(event);" class="bi bi-list"></i></font>
+<p id="number2"></p>
+</center>
+<div id="${snap.val().Time}menu" data-id="dropdown-content">
+  <p style="position:relative; left:60;"><i data-menuid="${snap.val().Time}menu" onclick="hidemenu(event);" class="bi bi-x"></i></p>
+  <p id="exitbutton" data-players="${snap.val().players}" data-gamecode="${snap.val().gamecode}">Exit</p>
+  <p>Players</p>
+</div>`
+//createbingoboard(`${snap.val().Time}`)
+//alert(snap.val().Time)
+document.querySelector(".createagamediv").style.display = "none";
+document.querySelector('#Bingogame').style.display = "block";
+document.querySelector('#menufullbox').style.display = "block";
+var para = document.createElement("p");
+    para.innerHTML = snap.val().Turn;
+    document.querySelector('[data-id="players-dropdown-content"]').appendChild(para)
+    }).then(() => {
+      document.getElementById("Joingamecode").value = "";
+    })
+    
+    })
+  })
+      /*set(ref(db,"score"), {
+    score: 0
+    })*/
+  document.getElementById("Joinagamebutton").addEventListener("click",() => {
+  var Joingamecode = document.getElementById("Joingamecode").value;
+    get(child(dbref,"game/"+Joingamecode)).then(snap => {
+      //alert(snap.val().gamecode)
+      var gc = snap.val().gamecode;
+      var player = snap.val().players  + myname + "|";
+      var turn = snap.val().Turn;
+      var t = snap.val().Time;
+      set(ref(db,"game/"+gc), {
+      gamecode: gc,
+      players: player,
+      Bingo: "No Bingo",
+      Time: t,
+      Turn: turn
+    })
+    document.querySelector("#Bingogame").innerHTML = `<div class="${snap.val().Time}" id="bingoboard">
+ <div id="bb" data-id="${snap.val().Time}B" data-letter="B">B</div>
+ <div id="bb" data-id="${snap.val().Time}I" data-letter="I">I</div>
+  <div id="bb" data-id="${snap.val().Time}N" data-letter="N">N</div>
+  <div id="bb" data-id="${snap.val().Time}G" data-letter="G">G</div>
+  <div id="bb" data-id="${snap.val().Time}O" data-letter="O">O</div>
+  <div id="bb" class="bb1" data-time="${snap.val().Time}"  data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb2" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb3" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb4" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb5" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb6" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb7" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb8" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb9" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb10" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb11" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb12" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb13" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb14" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb15" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb16" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb17" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb18" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb19" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb20" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb21" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb22" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb23" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb24" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+  <div id="bb" class="bb25" data-time="${snap.val().Time}" data-players="${snap.val().players}" >${Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50)}</div>
+</div>
+<br>
+<br>
+<center><p id="number"></p></center>
+<button disabled id="btn" data-finsh="done">Bingo</button>
+<br>
+<br>
+<br>
+<center><font size="6"><i data-menuid="${snap.val().Time}menu" onclick="displaymenu(event);" class="bi bi-list"></i></font>
+<p id="number2"></p>
+</center>
+<div id="${snap.val().Time}menu" data-id="dropdown-content">
+  <p style="position:relative; left:60;"><i data-menuid="${snap.val().Time}menu" onclick="hidemenu(event);" class="bi bi-x"></i></p>
+  <p id="exitbutton">Exit</p>
+  <p>Players</p>
+</div>`
+document.querySelector(".bingobasic").style.display = "none";
+document.querySelector('#Bingogame').style.display = "block";
+document.querySelector('#menufullbox').style.display = "block";
+    var para = document.createElement("p");
+    para.innerHTML = snap.val().Turn;
+    document.querySelector('[data-id="players-dropdown-content"]').appendChild(para)
+    }).then(() => {
+      document.getElementById("newgamecode").value = "";
+    })
+  })
+  setInterval(() => {
+    if(document.getElementById("Bingogame").style.display == "block"){
+  document.querySelectorAll("#bb").forEach(bb => {
+ bb.addEventListener("click",(event) => {
+    if(event.target.getAttribute("data-game") == null || event.target.getAttribute("data-game") == ""){
+  // event.target.style.background = "red";
+      if(document.querySelector(".bb1").style.backgroundColor == "red" && document.querySelector(".bb6").style.backgroundColor == "red" && document.querySelector(".bb11").style.backgroundColor == "red" && document.querySelector(".bb16").style.backgroundColor == "red" && document.querySelector(".bb21").style.backgroundColor == "red"){
+       /*document.querySelector('[data-letter="B"]').style.backgroundColor = "red"*/
+      document.querySelector(`[data-id="${event.target.getAttribute("data-time")}B"]`).style.background = "red"
+    } else if(document.querySelector(".bb2").style.backgroundColor == "red" && document.querySelector(".bb7").style.backgroundColor == "red" && document.querySelector(".bb12").style.backgroundColor == "red" && document.querySelector(".bb17").style.backgroundColor == "red" && document.querySelector(".bb22").style.backgroundColor == "red"){
+      document.querySelector(`[data-id="${event.target.getAttribute("data-time")}I"]`).style.background = "red"
+    } else if(document.querySelector(".bb3").style.backgroundColor == "red" && document.querySelector(".bb8").style.backgroundColor == "red" && document.querySelector(".bb13").style.backgroundColor == "red" && document.querySelector(".bb18").style.backgroundColor == "red" && document.querySelector(".bb23").style.backgroundColor == "red"){
+      document.querySelector(`[data-id="${event.target.getAttribute("data-time")}N"]`).style.background = "red"
+    }else if(document.querySelector(".bb4").style.backgroundColor == "red" && document.querySelector(".bb9").style.backgroundColor == "red" && document.querySelector(".bb14").style.backgroundColor == "red" && document.querySelector(".bb19").style.backgroundColor == "red" && document.querySelector(".bb24").style.backgroundColor == "red"){
+      document.querySelector(`[data-id="${event.target.getAttribute("data-time")}G"]`).style.background = "red"
+    }else if(document.querySelector(".bb5").style.backgroundColor == "red" && document.querySelector(".bb10").style.backgroundColor == "red" && document.querySelector(".bb15").style.backgroundColor == "red" && document.querySelector(".bb20").style.backgroundColor == "red" && document.querySelector(".bb25").style.backgroundColor == "red"){
+      document.querySelector(`[data-id="${event.target.getAttribute("data-time")}O"]`).style.background = "red"
+    } 
+    
+  if(document.querySelector(".bb1").style.backgroundColor == "red"&&document.querySelector(".bb2").style.backgroundColor == "red"&&document.querySelector(".bb3").style.backgroundColor == "red"&&document.querySelector(".bb4").style.backgroundColor == "red"&&document.querySelector(".bb5").style.backgroundColor == "red"&&document.querySelector(".bb6").style.backgroundColor == "red"&&document.querySelector(".bb7").style.backgroundColor == "red"&&document.querySelector(".bb8").style.backgroundColor == "red"&&document.querySelector(".bb9").style.backgroundColor == "red"&&document.querySelector(".bb10").style.backgroundColor == "red"&&document.querySelector(".bb11").style.backgroundColor == "red"&&document.querySelector(".bb12").style.backgroundColor == "red"&&document.querySelector(".bb13").style.backgroundColor == "red"&&document.querySelector(".bb14").style.backgroundColor == "red"&&document.querySelector(".bb15").style.backgroundColor == "red"&&document.querySelector(".bb16").style.backgroundColor == "red"&&document.querySelector(".bb17").style.backgroundColor == "red"&&document.querySelector(".bb18").style.backgroundColor == "red"&&document.querySelector(".bb19").style.backgroundColor == "red"&&document.querySelector(".bb20").style.backgroundColor == "red"&&document.querySelector(".bb21").style.backgroundColor == "red"&&document.querySelector(".bb22").style.backgroundColor == "red"&&document.querySelector(".bb23").style.backgroundColor == "red"&&document.querySelector(".bb24").style.backgroundColor == "red"&&document.querySelector(".bb25").style.backgroundColor == "red"){
+      document.querySelector('[data-finsh="done"]').removeAttribute("disabled")
+    }
+
+var Joingamecode = document.getElementById("Joingamecode").value;
+var newgamecode = document.getElementById("newgamecode").value;
+if(Joingamecode !== ""){
+    get(child(dbref,"game/"+Joingamecode)).then(snap => {
+    console.log(snap.val().players)
+    //  if(snap.val().Turn == snap_player[i]){
+        var gc = snap.val().gamecode;
+        var player = snap.val().players;
+        var t = snap.val().Time;
+        var tu = snap.val().Turn;
+        var bingo = myname+":"+event.target.innerHTML;
+        if(snap.val().Turn == myname){
+          event.target.style.background = "red";
+        
+        set(ref(db,"game/"+snap.val().gamecode), {
+      gamecode: gc,
+      players: player,
+      Bingo: myname+":"+event.target.innerHTML,
+      Time: t,
+      Turn: tu
+}).then(() => {
+  for(var sp = 0; sp < snap_player.length; sp++){
+    if(tu == snap_player[sp]){
+      if(snap_player[sp+1] !== ""){
+      set(ref(db,"game/"+snap.val().gamecode), {
+      gamecode: gc,
+      players: player,
+      Bingo: bingo,
+      Time: t,
+      Turn: snap_player[sp+1]
+})
+} else {
+  set(ref(db,"game/"+snap.val().gamecode), {
+      gamecode: gc,
+      players: player,
+      Bingo: bingo,
+      Time: t,
+      Turn: snap_player[0]
+})
+}
+    }
+  }
+})
+}
+//}
+})
+} else {
+   get(child(dbref,"game/"+newgamecode)).then(snap => {
+    //  if(snap.val().Turn == snap_player[i]){
+        var gc = snap.val().gamecode;
+        var player = snap.val().players;
+        var t = snap.val().Time;
+        var tu = snap.val().Turn;
+        var bingo = myname+":"+event.target.innerHTML;
+        if(snap.val().Turn == myname){
+          event.target.style.background = "red";
+        
+        set(ref(db,"game/"+snap.val().gamecode), {
+      gamecode: gc,
+      players: player,
+      Bingo: myname+":"+event.target.innerHTML,
+      Time: t,
+      Turn: tu
+}).then(() => {
+  for(var sp = 0; sp < snap_player.length; sp++){
+    if(tu == snap_player[sp]){
+      if(snap_player[sp+1] !== ""){
+      set(ref(db,"game/"+snap.val().gamecode), {
+      gamecode: gc,
+      players: player,
+      Bingo: bingo,
+      Time: t,
+      Turn: snap_player[sp+1]
+})
+} else {
+  set(ref(db,"game/"+snap.val().gamecode), {
+      gamecode: gc,
+      players: player,
+      Bingo: bingo,
+      Time: t,
+      Turn: snap_player[0]
+})
+}
+    }
+  }
+})
+}
+//}
+})
+}
+
+
+
+}
+})
+})
+}
+},1000)
+setInterval(() => {
+    
+    if(document.getElementById("Bingogame").style.display == "block"){
+      var Joingamecode = document.getElementById("Joingamecode").value;
+      var newgamecode = document.getElementById("newgamecode").value;
+      if(Joingamecode !== ""){
+      get(child(dbref,"game/"+Joingamecode)).then(snap => {
+        if(snap.val().Turn == myname){
+          document.getElementById("number2").innerHTML = "Your's Turn"
+        } else {
+          document.getElementById("number2").innerHTML = ""
+        }
+      })
+    } else {
+      get(child(dbref,"game/"+newgamecode)).then(snap => {
+        if(snap.val().Turn == myname){
+          document.getElementById("number2").innerHTML = "Your's Turn"
+        } else {
+          document.getElementById("number2").innerHTML = ""
+        }
+      })
+    }
+    }
+  })
+  setInterval(() => {
+if(document.getElementById("Bingogame").style.display == "block"){
+  document.querySelector('[data-finsh="done"]').addEventListener("click",() => {
+    
+  
+   var Joingamecode = document.getElementById("Joingamecode").value;
+    var newgamecode = document.getElementById("newgamecode").value;
+      if(Joingamecode !== ""){
+     get(child(dbref,"game/"+Joingamecode)).then(snap => {
+       var gc = snap.val().gamecode;
+       var player = snap.val().players;
+       var t = snap.val().Time;
+       var turn = snap.val().Turn;
+      set(ref(db,"game/"+gc), {
+      gamecode: gc,
+      players: player,
+      Bingo: myname+" won the Match",
+      Time: t,
+      Turn: turn
+    })
+     })
+      } else {
+        get(child(dbref,"game/"+newgamecode)).then(snap => {
+       var gc = snap.val().gamecode;
+       var player = snap.val().players;
+       var t = snap.val().Time;
+       var turn = snap.val().Turn;
+      set(ref(db,"game/"+gc), {
+      gamecode: gc,
+      players: player,
+      Bingo: myname+" won the Match",
+      Time: t,
+      Turn: turn
+    })
+     })
+      }
+      document.querySelectorAll("#bb").forEach(bb => {
+      bb.setAttribute("data-game","finsh")
+    })
+  })
+}
+  })
+setInterval(() => {
+  if(document.getElementById("Bingogame").style.display == "block"){
+    var Joingamecode = document.getElementById("Joingamecode").value;
+    var newgamecode = document.getElementById("newgamecode").value;
+      if(Joingamecode !== ""){
+     get(child(dbref,"game/"+Joingamecode)).then(snap => {
+       if(snap.val().Bingo !== "No Bingo"){
+       document.getElementById("number").innerHTML = snap.val().Bingo;
+       }
+     })
+  } else {
+    get(child(dbref,"game/"+newgamecode)).then(snap => {
+       if(snap.val().Bingo !== "No Bingo"){
+       document.getElementById("number").innerHTML = snap.val().Bingo;
+       }
+     })
+  }
+  }
+})
+
+  setInterval(() => {
+    if(document.getElementById("Bingogame").style.display == "block"){
+      var Joingamecode = document.getElementById("Joingamecode").value;
+      
+     get(child(dbref,"game/"+Joingamecode)).then(snap => {
+        for(var i = 1; i < 25; i++){
+    document.querySelector(`.bb${i}`).setAttribute("data-players",snap.val().players)
+    document.getElementById("gamestartbutton").setAttribute("data-players",snap.val().players)
+    snap_player = snap.val().players.split("|");
+        }
+     })
+    }
+      },100)
+      setInterval(() => {
+        if(document.getElementById("Bingogame").style.display == "block"){
+    document.getElementById("exitbutton").addEventListener("click",() => {
+  var Joingamecode = document.getElementById("Joingamecode").value;
+  var newgamecode = document.getElementById("newgamecode").value;
+      if(Joingamecode !== ""){
+     get(child(dbref,"game/"+Joingamecode)).then(snap => {
+       var replace = snap.val().players.replace(`${myname}|`,``)
+        console.log(replace)
+document.querySelector("#Bingogame").style.display = "none"
+document.querySelector("#Bingogame").innerHTML = "";
+document.querySelector(".bingobasic").style.display = "block";
+var gc = snap.val().gamecode;
+var t = snap.val().Time;
+var turn = snap.val().Turn;
+set(ref(db,"game/"+gc), {
+      gamecode: gc,
+      players: replace,
+      Bingo: "No Bingo",
+      Time: t,
+      Turn: turn
+    }).catch(err => alert(err))
+     })
+    } else {
+       get(child(dbref,"game/"+newgamecode)).then(snap => {
+       var replace = snap.val().players.replace(`${myname}|`,``)
+        console.log(replace)
+document.querySelector("#Bingogame").style.display = "none"
+document.querySelector("#Bingogame").innerHTML = "";
+document.querySelector(".bingobasic").style.display = "block";
+var gc = snap.val().gamecode;
+var t = snap.val().Time;
+var turn = snap.val().Turn;
+set(ref(db,"game/"+gc), {
+      gamecode: gc,
+      players: replace,
+      Bingo: "No Bingo",
+      Time: t,
+      Turn: turn
+    })
+     })
+    }
+          })
+        }
+        
+        
+      })
+    document.getElementById("gamestartbutton").addEventListener("click",() => {
+      document.querySelector("#menufullbox").style.display = "none";
+  console.log(snap_player)
+    })
+  document.querySelector('[data-id="button"]').addEventListener("click",() => {
+    var username = document.querySelector('#usernameinput').value;
+    var password = document.querySelector('#passwordinput').value;
+    var email = document.querySelector('#emailinput').value;
+    var id = document.querySelector('#useridinput').value;
+    var c2;
+   get(child(dbref,"score")).then(snap => {
+      var c1 = parseInt(snap.val().score) + 1;
+     set(ref(db,"score"), {
+      score: c1
+    })
+   set(ref(db,"players/"+c1), {
+      username: username,
+      password: password,
+      email: email,
+      userid: id,
+      profileicon: "https://i.postimg.cc/JDQhHHXX/default-user-icon-5.png"
+    }).then(() => {
+      document.querySelector('[data-id="div"]').style.display = "none";
+      document.querySelector(".bingobasic").style.display = "block";
+      document.cookie = "name=" + username + "; expires=Fri, 19 Feb 2275 12:00:00 UTC;";
+    })
+    })
+  })
+  var usernames = [];
+  var usernamesnumbers = [];
+  var userid = [];
+  var password = [];
+  var email = [];
+    const starCountRef = ref(db, 'players/');
+onValue(starCountRef, (snapshot) => {
+  
+  
+  get(child(dbref,"score")).then(snap => {
+      var score = parseInt(snap.val().score);
+     // alert(score)
+for(var i = score; i > 1; i--){
+     //   mykey = i;
+      usernamesnumbers.push(i)
+ // console.log(mykey)
+get(child(dbref,"players/"+i)).then(snap2 => {
+      console.log(snap2.val().userid)
+      console.log(usernames)
+      console.log(usernamesnumbers)
+      console.log(password)
+      console.log(email)
+      console.log(userid)
+      if(snap2.val().username == myname){
+        document.getElementById("profileiconimage").src = snap2.val().profileicon;
+      }
+      usernames.push(snap2.val().username)
+      email.push(snap2.val().email)
+      password.push(snap2.val().password)
+      userid.push(snap2.val().userid)
+    })
+}
+      })
+    })
+    window.addEventListener("load",() => {
+      var c = document.cookie
+  .split(';')
+  .map(cookie => cookie.split('='))
+  .reduce((accumulator, [key, value]) => ({
+    ...accumulator,
+    [key.trim()]: decodeURIComponent(value)
+  }), {});
+  if(c.name == undefined || c.name == null || c.name == ""){
+    document.querySelector('#loginbox').style.display = "block";
+      document.querySelector(".bingobasic").style.display = "none";
+  }
+    })
+    document.getElementById("file").addEventListener("change",(event) => {
+      var input = event.target;
+    
+    var reader = new FileReader();
+    reader.onload = function(){
+      var dataURL = reader.result;
+      var output = document.getElementById('profileiconimage');
+      output.src = dataURL;
+      get(child(dbref,"players/"+mykey)).then(snap => {
+      var username = snap.val().username;
+      var password = snap.val().password;
+      var email = snap.val().email;
+      var id = snap.val().userid;
+        set(ref(db,"players/"+mykey), {
+      username: username,
+      password: password,
+      email: email,
+      userid: id,
+      profileicon: dataURL
+    })
+      })
+    //  localStorage.setItem("pe",dataURL);
+    };
+    reader.readAsDataURL(input.files[0]);
+    })
+    document.getElementById("profileiconimage").addEventListener("click",() => {
+document.getElementById("file").click();
+    })
+    document.querySelector('[data-id="button2"]').addEventListener("click",() => {
+         var username2 = document.querySelector('#usernameinput2').value;
+    var password2 = document.querySelector('#passwordinput2').value;
+    var email2 = document.querySelector('#emailinput2').value;
+    var id2 = document.querySelector('#useridinput2').value;
+      console.log(usernames)
+      console.log(usernamesnumbers)
+      for(var i = 0; i < usernames.length; i++){
+        if(username2 == usernames[i] && password2 == password[i] && email2 == email[i] && id2 == userid[i]){
+          get(child(dbref,"players/"+usernamesnumbers[i])).then(snap2 => {
+            document.cookie = "name=" + snap2.val().username + "; expires=Fri, 19 Feb 2275 12:00:00 UTC;";
+          }).then(() => {
+            location.reload();
+          })
+        }
+      }
+    })
+</script>
+<font size="6" class="settings"><i onclick="gotosettings();" class="bi bi-gear-fill"></i></font>
+<style>
+.bingobasic{
+  
+  
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  overflow:scroll;
+  display:block;
+}
+  [src="Numbers.gif"]{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1;
+  }
+  .Bingotitle{
+    color:#ffb732;
+    position:relative;
+    z-index:3;
+    font-family:Comfortaa,cursive;
+    font-size:50;
+    margin-top:6rem;
+    letter-spacing:10px;
+  }
+  .MadebySourabh{
+ color:#ffb732;
+    position:relative;
+    z-index:3;
+    font-family:Comfortaa,cursive;
+    font-size:20;
+    margin-top:10rem;
+    letter-spacing:10px;
+  }
+  .settings{
+    position:fixed;
+    top:10;
+    right:10;
+    color:white;
+    z-index:3;
+  }
+  .settings:active{
+    animation:rotate 1s linear infinite;
+  }
+  @keyframes rotate{
+    0%{
+      transform:rotate(360deg);
+    }
+  }
+  .gamecodeentry{
+    width:100;
+    height:50;
+    margin-top:10rem;
+    padding:10px;
+    border-radius:5px;
+    position:relative;
+    z-index:3;
+    outline:none;
+    border:none;
+    text-align:center;
+    text-align:center;
+    font-size:15px;
+  }
+  .Entrycodeandplaybutton{
+    font-family:Comfortaa,cursive;
+      font-size:2rem;
+      padding:0.5rem 2rem;
+      border:2px solid black;
+      border-radius:0.3rem;
+      margin:3rem auto;
+      background:lightgreen;
+      display:block;
+      position:relative;
+      z-index:3;
+  }
+  .Entrycodeandplaybutton:active{
+    background:none;
+    color:white;
+  }
+  .createagamediv{
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  display:none;
+  overflow:scroll;
+  }
+  .creategamecodeinput{
+    width:100;
+    height:50;
+    margin-top:6rem;
+    padding:10px;
+    border-radius:5px;
+    position:relative;
+    z-index:3;
+    outline:none;
+    border:none;
+    text-align:center;
+    text-align:center;
+    font-size:15px;
+  }
+  .infoaboutnumber{
+    color:#ffb732;
+    position:relative;
+    z-index:3;
+    font-family:Comfortaa,cursive;
+    font-size:1rem;
+    margin:-8rem auto;
+  }
+  .infoaboutnumber2{
+    color:red;
+    position:relative;
+    z-index:3;
+    font-family:Comfortaa,cursive;
+    font-size:1rem;
+    margin-top:-10rem;
+  }
+    .infoaboutnumber3{
+    color:red;
+    position:relative;
+    z-index:3;
+    font-family:Comfortaa,cursive;
+    font-size:1rem;
+    margin-top:-10rem;
+  }
+  .Createagamebutton{
+    font-family:Comfortaa,cursive;
+      font-size:2rem;
+      padding:0.5rem 2rem;
+      border:2px solid black;
+      border-radius:0.3rem;
+      margin:6rem auto;
+      background:lightgreen;
+      display:block;
+      position:relative;
+      z-index:3;
+  }
+   .Createagamebutton:active{
+    background:none;
+    color:white;
+  }
+    .Createagamebackbutton{
+    font-family:Comfortaa,cursive;
+      font-size:2rem;
+      padding:0.5rem 2rem;
+      border:2px solid black;
+      border-radius:0.3rem;
+      margin:10rem auto;
+      background:lightgreen;
+      display:block;
+      position:relative;
+      z-index:3;
+  }
+   .Createagamebackbutton:active{
+    background:none;
+    color:white;
+  }
+   [data-id="Bingotitle"]{
+	    font-family:Comfortaa,cursive;
+    font-size:50;
+	  }
+	  hr{
+	    margin-top:-3rem;
+	  }
+	  [data-id="input"]{
+	    margin-top:6rem;
+	    width:200;
+    height:50;
+    margin-top:3rem;
+    padding:10px;
+    border-radius:5px;
+    position:relative;
+    z-index:3;
+    outline:none;
+    border:1px solid dodgerblue;
+    text-align:center;
+    text-align:center;
+    font-size:15px;
+    font-family:Comfortaa,cursive;
+	  }
+	  [data-id="button"]{
+	      font-family:Comfortaa,cursive;
+      font-size:2rem;
+      padding:0.5rem 2rem;
+      border:2px solid black;
+      border-radius:0.3rem;
+      margin:3rem auto;
+      background:lightgreen;
+      display:block;
+      position:relative;
+      z-index:3;
+	  }
+	  [data-id="button"]:active{
+	    background:none;
+	  }
+	  [data-id="eye"]{
+	    position:relative;
+	    top:-280;
+	    left:120;
+	  }
+	  [data-id="div"]{
+	    width:100%;
+	    height:100%;
+	    position:fixed;
+	    top:0;
+	    left:0;
+	    display:none;
+	    overflow:scroll;
+	  }
+   #bingoboard{
+    width:345px;
+    height:390px;
+    display:grid;
+    grid-template-rows:repeat(6,1fr);
+    grid-template-columns:repeat(5,1fr);
+    position:relative;
+    margin:auto;
+    font-family:Sans-Serif;
+    overflow:scroll;
+  }
+  #bb{
+  border-radius:5px;
+  margin-left:5px;
+  margin-top:5px;
+  background:#ffb732;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  }
+  #Bingo{
+    font-size:20;
+    margin-left:30;
+    letter-spacing:26;
+    position:relative;
+    top:-20;
+    font-family:Sans-Serif;
+  }
+  #number{
+    position:relative;
+    top:-25;
+    font-size:25;
+    font-family:Comfortaa,cursive;
+  }
+  #number2{
+    position:relative;
+    top:-25;
+    font-size:25;
+    font-family:Comfortaa,cursive;
+  }
+      #btn{
+      font-family:Comfortaa,cursive;
+      font-size:2rem;
+      padding:0.5rem 2rem;
+      border:2px solid black;
+      border-radius:0.3rem;
+      margin:-2rem auto;
+      background:lightgreen;
+      display:block;
+    }
+    #btn:active{
+      background:none;
+      font-family:Comfortaa,cursive;
+    }
+    #footer{
+      width:100%;
+      height:100px;
+      overflow:scroll;
+      background:grey;
+      position:fixed;
+      bottom:0;
+      left:0;
+      display:flex;
+      align-items:center;
+    }
+    #photocard{
+    width:60;
+    height:60;
+    object-fit:cover;
+    margin-left:5px;
+    border:1px solid grey;
+    border-radius:50%;
+    margin:3px 5px;
+  }
+  #Bingogame{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    display:none;
+  }
+  #settingsdiv{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    display:none;
+  }
+  #profileiconbox{
+    width:100%;
+    height:200px;
+    border:none;
+    border-bottom:1px solid silver;
+    position:relative;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  #profileiconbox img{
+    width:150px;
+    clip-path:circle();
+  }
+  [data-option="left"]{
+    color:#ffb732;
+    font-size:15px;
+    position:relative;
+    z-index:3;
+    font-family:Comfortaa,cursive;
+  }
+  [data-option="gamesplayed"],[data-option="gameswon"],[data-option="gameslose"]{
+color:#ffb732;
+    font-size:15px;
+    position:relative;
+    z-index:3;
+    font-family:Comfortaa,cursive;
+  }
+    #logoutbutton{
+    font-family:Comfortaa,cursive;
+      font-size:2rem;
+      padding:0.5rem 2rem;
+      border:2px solid black;
+      border-radius:0.3rem;
+      background:lightgreen;
+      display:block;
+      position:relative;
+      z-index:3;
+  }
+   #logoutbutton:active{
+    background:none;
+    color:bloack;
+  }
+  #backfromsettingsbutton{
+    font-family:Comfortaa,cursive;
+      font-size:2rem;
+      padding:0.5rem 2rem;
+      border:2px solid black;
+      border-radius:0.3rem;
+      background:lightgreen;
+      display:block;
+      position:relative;
+      z-index:3;
+  }
+  #backfromsettingsbutton:active{
+    background:none;
+    color:black;
+  }
+   [data-id="dropdown-content"] {
+  
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding:  ;
+  z-index: 1;
+  text-align:center;
+  position:fixed;
+  top:50%;
+  left:50%;
+  font-family:Sans-Serif;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -o-user-select:none;
+  -user-select:none;
+  transform:translate(-50%,-50%);
+  display:none;
+}
+ #menufullbox{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    background:rgba(0, 0, 0, .5);
+    display:none;
+  }
+     [data-id="players-dropdown-content"] {
+  
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding:  ;
+  z-index: 1;
+  text-align:center;
+  position:fixed;
+  top:50%;
+  left:50%;
+  font-family:Sans-Serif;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -o-user-select:none;
+  -user-select:none;
+  transform:translate(-50%,-50%);
+  display:block;
+}
+a{
+  color:black;
+}
+	  [data-id="Bingotitle2"]{
+	    font-family:Comfortaa,cursive;
+    font-size:50;
+	  }
+	  hr{
+	    margin-top:-3rem;
+	  }
+	  [data-id="input2"]{
+	    margin-top:6rem;
+	    width:200;
+    height:50;
+    margin-top:3rem;
+    padding:10px;
+    border-radius:5px;
+    position:relative;
+    z-index:3;
+    outline:none;
+    border:1px solid dodgerblue;
+    text-align:center;
+    text-align:center;
+    font-size:15px;
+    font-family:Comfortaa,cursive;
+	  }
+	  [data-id="button2"]{
+	      font-family:Comfortaa,cursive;
+      font-size:2rem;
+      padding:0.5rem 2rem;
+      border:2px solid black;
+      border-radius:0.3rem;
+      margin:3rem auto;
+      background:lightgreen;
+      display:block;
+      position:relative;
+      z-index:3;
+	  }
+	  [data-id="button2"]:active{
+	    background:none;
+	  }
+	  [data-id="eye2"]{
+	    position:relative;
+	    top:-280;
+	    left:120;
+	  }
+	  #loginbox{
+	    width:100%;
+	    height:100%;
+	    position:fixed;
+	    display:none;
+	    overflow:scroll;
+	  }
+</style>
+<center><p size="10" class="Bingotitle">BINGO</p></center>
+<center><p class="MadebySourabh">Made by<br>SOURABH</p></center>
+<center>
+<input id="Joingamecode"oninput="checkthecode(event);" type="number" class="gamecodeentry" placeholder="code">
+</center>
+<button disabled class="Entrycodeandplaybutton" id="Joinagamebutton">Join</button>
+<button onclick="gotocreate();" class="Entrycodeandplaybutton">Create</button>
+<script>
+  function checkthecode(event){
+    if(event.target.value.length == 8){
+      document.querySelector(".Entrycodeandplaybutton").removeAttribute("disabled")
+      
+    } else {
+      document.querySelector(".Entrycodeandplaybutton").setAttribute("disabled","")
+      
+    }
+  }
+  function checkthecode2(event){
+    if(event.target.value.length == 8){
+      
+      document.querySelector(".Createagamebutton").removeAttribute("disabled")
+    } else {
+      
+      document.querySelector(".Createagamebutton").setAttribute("disabled","")
+    }
+  }
+  function goback(){
+    setTimeout(() => {
+  document.querySelector(".createagamediv").style.display = "none";
+    document.querySelector(".bingobasic").style.display = "block";
+    },100)
+  }
+  function gotocreate(){
+    setTimeout(() => {
+    document.querySelector(".createagamediv").style.display = "block";
+    document.querySelector(".bingobasic").style.display = "none";
+    },100)
+  }
+    function changeicon(event){
+	    var ec = event.target.getAttribute("class");
+	    if(ec == "bi bi-eye-slash"){
+	      event.target.setAttribute("class","bi bi-eye")
+	     document.querySelector('#passwordinput').type = "usernamereplacement"
+	    } else {
+	      event.target.setAttribute("class","bi bi-eye-slash")
+	      document.querySelector('#passwordinput').type = "password"
+	    }
+	  }
+	  function checkuserid(event){
+	    var username = document.querySelector('#usernameinput').value.length;
+    var password = document.querySelector('#passwordinput').value.length;
+    var email = document.querySelector('#emailinput').value.length;
+    var id = document.querySelector('#useridinput').value.length;
+if(password >= 8 && id >= 8 && email >= 8 && username >= 2){
+  document.querySelector('[data-id="button"]').removeAttribute("disabled")
+} else {
+  document.querySelector('[data-id="button"]').setAttribute("disabled","")
+}
+if(event.target.value.length <= 7 && event.target.getAttribute("type") !== "email" && event.target.getAttribute("type") !== "username") {
+ if(event.target.getAttribute("type") !== "usernamereplacement"){
+  document.querySelector(".infoaboutnumber2").innerHTML = event.target.getAttribute("type") + " should be atleast 8 characters"
+  } else {
+    document.querySelector(".infoaboutnumber2").innerHTML = "password" + " should be atleast 8 characters"
+  }
+} else {
+document.querySelector(".infoaboutnumber2").innerHTML = "Login"
+}
+
+
+//if(event.target.)
+	  }
+	  	  function checkuserid2(event){
+	    var username = document.querySelector('#usernameinput2').value.length;
+    var password = document.querySelector('#passwordinput2').value.length;
+    var email = document.querySelector('#emailinput2').value.length;
+    var id = document.querySelector('#useridinput2').value.length;
+if(password >= 8 && id >= 8 && email >= 8 && username >= 2){
+  document.querySelector('[data-id="button2"]').removeAttribute("disabled")
+} else {
+  document.querySelector('[data-id="button2"]').setAttribute("disabled","")
+}
+if(event.target.value.length <= 7 && event.target.getAttribute("type") !== "email" && event.target.getAttribute("type") !== "username") {
+  if(event.target.getAttribute("type") !== "usernamereplacement"){
+  document.querySelector(".infoaboutnumber3").innerHTML = event.target.getAttribute("type") + " should be atleast 8 characters"
+  } else {
+    document.querySelector(".infoaboutnumber3").innerHTML = "password" + " should be atleast 8 characters"
+  }
+} else {
+document.querySelector(".infoaboutnumber3").innerHTML = "Create an account"
+}
+
+
+//if(event.target.)
+	  }
+	  //Bingo board js start |--|
+  function createbingoboard(board){
+	      for(var i = 1; i < 26; i++){
+      var div = document.createElement("div");
+      
+      var MR = Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50);
+     // allnumbers.push(MR)
+     div.innerHTML = MR;
+      
+      
+      
+      div.id = "bb";
+      div.setAttribute("class","bb"+i)
+      div.setAttribute("onclick","selectnumber(event);")
+  document.querySelector(`.${board}`).appendChild(div)
+//  console.log(bb)
+    }
+	  }
+	  var numbersarray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+var allnumbers = []
+var row1 = [1,6,11,16,21]
+
+  /*window.addEventListener("load",function(){
+    for(var i = 1; i < 26; i++){
+      var div = document.createElement("div");
+      
+      var MR = Math.floor(Math.random() * 90) + Math.floor(Math.random() * 50);
+      allnumbers.push(MR)
+     div.innerHTML = MR;
+      
+      
+      
+      div.id = "bb";
+      div.setAttribute("class","bb"+i)
+      div.setAttribute("onclick","selectnumber(event);")
+      document.getElementById("bingoboard").appendChild(div)
+//  console.log(bb)
+    }
+  })*/
+  function gobackfromsettings(){
+    document.querySelector("#settingsdiv").style.display = "none";
+    document.querySelector(".bingobasic").style.display = "block";
+  }
+  function gotosettings(){
+document.querySelector("#settingsdiv").style.display = "block";
+    document.querySelector(".bingobasic").style.display = "none";
+  }
+  function displaymenu(event){
+    document.getElementById(event.target.getAttribute("data-menuid")).style.display = "block";
+  }
+   function changeicon2(event){
+	    var ec = event.target.getAttribute("class");
+	    if(ec == "bi bi-eye-slash"){
+	      event.target.setAttribute("class","bi bi-eye")
+	     document.querySelector('#passwordinput2').type = "usernamereplacement"
+	    } else {
+	      event.target.setAttribute("class","bi bi-eye-slash")
+	      document.querySelector('#passwordinput2').type = "password"
+	    }
+	  }
+  function hidemenu(event){
+    document.getElementById(event.target.getAttribute("data-menuid")).style.display = "none"
+  }
+  function kkk(){
+    document.getElementById("loginbox").style.display = "none";
+    document.querySelector('[data-id="div"]').style.display = "block";
+  }
+  function kkk2(){
+    document.getElementById("loginbox").style.display = "block";
+    document.querySelector('[data-id="div"]').style.display = "none";
+  }
+  function Logout(){
+    document.getElementById("loginbox").style.display = "block";
+    document.getElementById("settingsdiv").style.display = "none";
+    
+  }
+</script>
+</div>
+<div class="createagamediv">
+  <img src="Numbers.gif">
+ <center>
+ <input placeholder="code" oninput="checkthecode2(event);" type="number" class="creategamecodeinput" id="newgamecode">
+</center>
+
+ <button disabled class="Createagamebutton" id="Createagamebutton">Create</button>
+ <button onclick="goback();" class="Createagamebackbutton">Back</button>
+<center>
+<p class="infoaboutnumber">Create a Number and Share it to your friends to play with your friends</p>
+</center>
+</div>
+<!-- Singup form -->
+<div data-id="div">
+	<center><p data-id="Bingotitle">Bingo</p>	<hr color="silver">
+	<input oninput="checkuserid(event);" data-id="input" id="usernameinput" type="username" placeholder="username"><br>
+	<input oninput="checkuserid(event);" data-id="input" id="emailinput" type="email" placeholder="email"><br>
+	<input oninput="checkuserid(event);" data-id="input" id="passwordinput" type="password" placeholder="password"><br>
+	<input oninput="checkuserid(event);" data-id="input" id="useridinput" data-name="userid" type="number" placeholder="id"><br>
+	<button disabled onclick="gottobasic();" data-id="button">Singup</button>
+<i onclick="changeicon(event);" data-id="eye" class="bi bi-eye-slash"></i>
+<p class="infoaboutnumber2" onclick="kkk2();">Login</p>
+	</center>
+	</div>
+	<div id="Bingogame"></div>
+	<div id="settingsdiv">
+	  <div id="profileiconbox">
+	    <img id="profileiconimage" src="https://i.postimg.cc/JDQhHHXX/default-user-icon-5.png">
+	    <input type="file" style="display:none;" id="file">
+	  </div>
+	  <center>
+	  <p data-option="left">Games Played:</p>
+	  <p data-option="gamesplayed">5</p>
+	  <p data-option="left">Games Won:</p>
+	  <p data-option="gameswon">3</p>
+	    <p data-option="left">Games lose:</p>
+	  <p data-option="gameslose">2</p>
+	  
+<button id="logoutbutton" onclick="Logout();">LogOut</button>
+<br>
+<br>
+<button onclick="gobackfromsettings();" id="backfromsettingsbutton">Back</button>
+	  </center>
+	</div>
+	<div id="menufullbox">
+  <div data-id="players-dropdown-content">
+    <a href="#"><p id="gamestartbutton">Start</p></a>
+    <p>Host:</p>
+  </div>
+  </div>
+  <div id="loginbox">
+    <center><p data-id="Bingotitle2">Bingo</p>	<hr color="silver">
+	<input oninput="checkuserid2(event);" data-id="input2" id="usernameinput2" type="username" placeholder="username"><br>
+	<input oninput="checkuserid2(event);" data-id="input2" id="emailinput2" type="email" placeholder="email"><br>
+	<input oninput="checkuserid2(event);" data-id="input2" id="passwordinput2" type="password" placeholder="password"><br>
+	<input oninput="checkuserid2(event);" data-id="input2" id="useridinput2" type="number" placeholder="id"><br>
+	<button disabled data-id="button2">Login</button>
+<i onclick="changeicon2(event);" data-id="eye2" class="bi bi-eye-slash"></i>
+<p class="infoaboutnumber3" onclick="kkk();">Create an account</p>
+	</center>
+  </div>
