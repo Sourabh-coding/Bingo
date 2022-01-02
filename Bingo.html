@@ -1,8 +1,7 @@
 <div class="bingobasic">
 <img src="Numbers.gif">
-  <link rel="icon" href="https://i.postimg.cc/p9kLNGPG/Screenshot-20220101-090450.jpg'" sizes="16x16" type="image/jpg">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="icon" href="https://i.postimg.cc/p9kLNGPG/Screenshot-20220101-090450.jpg'" sizes="16x16" type="image/jpg">
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet"><link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 <script type="module">
@@ -192,6 +191,30 @@ document.querySelector('#menufullbox').style.display = "block";
       document.getElementById("newgamecode").value = "";
     })
   })
+  
+  setInterval(() => {
+    if(document.getElementById("Bingogame").style.display == "block"){
+      var Joingamecode = document.getElementById("Joingamecode").value;
+      var newgamecode = document.getElementById("newgamecode").value;
+      if(Joingamecode !== ""){
+     get(child(dbref,"game/"+Joingamecode)).then(snap => {
+        for(var i = 1; i < 25; i++){
+    document.querySelector(`.bb${i}`).setAttribute("data-players",snap.val().players)
+    document.getElementById("gamestartbutton").setAttribute("data-players",snap.val().players)
+    snap_player = snap.val().players.split("|");
+        }
+     })
+    } else {
+      get(child(dbref,"game/"+newgamecode)).then(snap => {
+        for(var i = 1; i < 25; i++){
+    document.querySelector(`.bb${i}`).setAttribute("data-players",snap.val().players)
+    document.getElementById("gamestartbutton").setAttribute("data-players",snap.val().players)
+    snap_player = snap.val().players.split("|");
+        }
+     })
+    }
+    }
+      },100)
   setInterval(() => {
     if(document.getElementById("Bingogame").style.display == "block"){
   document.querySelectorAll("#bb").forEach(bb => {
@@ -219,7 +242,7 @@ var Joingamecode = document.getElementById("Joingamecode").value;
 var newgamecode = document.getElementById("newgamecode").value;
 if(Joingamecode !== ""){
     get(child(dbref,"game/"+Joingamecode)).then(snap => {
-    console.log(snap.val().players)
+    //console.log(snap_player)
     //  if(snap.val().Turn == snap_player[i]){
         var gc = snap.val().gamecode;
         var player = snap.val().players;
@@ -254,8 +277,9 @@ if(Joingamecode !== ""){
       Time: t,
       Turn: snap_player[0]
 })
+console.log(snap_player[0])
 }
-    }
+    } 
   }
 })
 }
@@ -398,20 +422,6 @@ setInterval(() => {
   }
   }
 })
-
-  setInterval(() => {
-    if(document.getElementById("Bingogame").style.display == "block"){
-      var Joingamecode = document.getElementById("Joingamecode").value;
-      
-     get(child(dbref,"game/"+Joingamecode)).then(snap => {
-        for(var i = 1; i < 25; i++){
-    document.querySelector(`.bb${i}`).setAttribute("data-players",snap.val().players)
-    document.getElementById("gamestartbutton").setAttribute("data-players",snap.val().players)
-    snap_player = snap.val().players.split("|");
-        }
-     })
-    }
-      },100)
       setInterval(() => {
         if(document.getElementById("Bingogame").style.display == "block"){
     document.getElementById("exitbutton").addEventListener("click",() => {
@@ -433,9 +443,7 @@ set(ref(db,"game/"+gc), {
       Bingo: "No Bingo",
       Time: t,
       Turn: turn
-    }).then(() => {
-      location.reload();
-     })
+    }).catch(err => alert(err))
      })
     } else {
        get(child(dbref,"game/"+newgamecode)).then(snap => {
@@ -453,7 +461,7 @@ set(ref(db,"game/"+gc), {
       Bingo: "No Bingo",
       Time: t,
       Turn: turn
-    }).then(() => { location.reload(); })
+    })
      })
     }
           })
